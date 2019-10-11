@@ -72,6 +72,10 @@ Route::prefix('tutorial')->group(function () {
     Route::delete('projects/{project}/completed-task/{task}', 'Tutorial\CompletedTasksController@destroy')->name('Tutorial.tasks.completed');
 
     Route::resource('project2s', 'Tutorial\Project2sController');
+    Route::post('project2s/{project2}/task2s', 'Tutorial\ProjectTask2sController@store')->name('project2s.task2s.store');
+    Route::post('project2s/{project2}/task2s/{task2}', 'Tutorial\CompletedTask2sController@store')->name('project2s.task2s.completed');
+    Route::delete('project2s/{project2}/task2s/{task2}', 'Tutorial\CompletedTask2sController@destroy')->name('project2s.task2s.completed');
+    // Route::get('project2s/{project}', 'Tutorial\Project2sController@show');
 
     /**
      * for a completely resource, it should support 7 situation:
