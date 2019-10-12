@@ -88,3 +88,7 @@ Route::prefix('tutorial')->group(function () {
      * Delete somethings/id (delete something)
      */
 });
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
