@@ -11,11 +11,32 @@
 |
 */
 
+// bind things into services container
+app()->bind('example1', function () {
+    return new \App\Tutorial\Project;
+});
+
+app()->singleton('example2', function () {
+    return new \App\Tutorial\Project;
+});
+
+app()->singleton('example5', function() {
+    return new App\Tutorial\Example5('something blablabla');
+});
+
+app()->singleton('App\Tutorial\Example5', function() {
+    return new App\Tutorial\Example5('something blablabla');
+});
+
 Route::get('/', function () {
     return view('welcome');
 });
 
-Auth::routes();
+Auth::routes(['register' => false]);
+/**
+ * if want to turn off register:
+ * Auth::routes(['register' => false]);
+ */
 
 Route::get('/home', 'HomeController@index')->name('home');
 
@@ -81,6 +102,34 @@ Route::prefix('tutorial')->group(function () {
     Route::post('project2s/{project2}/task2s', 'Tutorial\ProjectTask2sController@store')->name('project2s.task2s.store');
     Route::post('project2s/{project2}/task2s/{task2}', 'Tutorial\CompletedTask2sController@store')->name('project2s.task2s.completed');
     Route::delete('project2s/{project2}/task2s/{task2}', 'Tutorial\CompletedTask2sController@destroy')->name('project2s.task2s.completed');
+
+    Route::get('services/example1', function () {
+        // fetch things out of container
+        dd(app('example1'), app('example1'));
+    });
+
+    Route::get('services/example2', function () {
+        dd(app('example2'), app('example2'));
+    });
+
+    Route::get('services/example3', function () {
+        /**
+         * laravel will first try to fetch from service container,
+         * second will try fetch from class,
+         * otherwise it will fail to error.
+         */
+        dd(app('App\Tutorial\Project'));
+    });
+
+    Route::get('services/example4', function () {
+        /**
+         * if there was a class, and it need to instance other class,
+         * laravel still will try to instance that.
+         */
+        dd(app('App\Tutorial\Example'));
+    });
+
+    Route::get('services/example5', 'Tutorial\Example5Controller@show');
 
     /**
      * for a completely resource, it should support 7 situation:
