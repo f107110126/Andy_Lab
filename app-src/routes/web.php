@@ -15,6 +15,10 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
+
 Route::prefix('tutorial')->group(function () {
     /**
      * same as:
@@ -43,14 +47,16 @@ Route::prefix('tutorial')->group(function () {
             'Fifth task for sample',
         ];
         return view('Tutorial/task', compact('tasks')); // set $tasks => $this->tasks
-        // following command is same result.
-        // return view('Tutorial/task', compact('tasks')); // set $tasks => $this->tasks
-        // return view('Tutorial/task', ['tasks' => $tasks]); // set $tasks => $this->tasks
-        // return view('Tutorial/task', ['Tasks' => $tasks]); // set $Tasks => $this->tasks
-        // return view('Tutorial/task')->with('tasks', $tasks); // set $tasks => $this->$tasks
-        // return view('Tutorial/task')->with('Tasks', $tasks); // set $Tasks => $this->$tasks
-        // return view('Tutorial/task')->withTasks($tasks); // set $tasks => $this->$tasks
-        // return view('Tutorial/task')->withtasks($tasks); // set $tasks => $this->$tasks
+        /**
+         * following command is same result.
+         * return view('Tutorial/task', compact('tasks')); // set $tasks => $this->tasks
+         * return view('Tutorial/task', ['tasks' => $tasks]); // set $tasks => $this->tasks
+         * return view('Tutorial/task', ['Tasks' => $tasks]); // set $Tasks => $this->tasks
+         * return view('Tutorial/task')->with('tasks', $tasks); // set $tasks => $this->$tasks
+         * return view('Tutorial/task')->with('Tasks', $tasks); // set $Tasks => $this->$tasks
+         * return view('Tutorial/task')->withTasks($tasks); // set $tasks => $this->$tasks
+         * return view('Tutorial/task')->withtasks($tasks); // set $tasks => $this->$tasks
+         */
     })->name('Tutorial.task');
 
     Route::get('controller/', 'Tutorial\PagesController@home')->name('Tutorial.Controller.home');
@@ -75,7 +81,6 @@ Route::prefix('tutorial')->group(function () {
     Route::post('project2s/{project2}/task2s', 'Tutorial\ProjectTask2sController@store')->name('project2s.task2s.store');
     Route::post('project2s/{project2}/task2s/{task2}', 'Tutorial\CompletedTask2sController@store')->name('project2s.task2s.completed');
     Route::delete('project2s/{project2}/task2s/{task2}', 'Tutorial\CompletedTask2sController@destroy')->name('project2s.task2s.completed');
-    // Route::get('project2s/{project}', 'Tutorial\Project2sController@show');
 
     /**
      * for a completely resource, it should support 7 situation:
@@ -88,7 +93,3 @@ Route::prefix('tutorial')->group(function () {
      * Delete somethings/id (delete something)
      */
 });
-
-Auth::routes();
-
-Route::get('/home', 'HomeController@index')->name('home');
