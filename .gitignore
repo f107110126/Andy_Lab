@@ -1,4 +1,4 @@
-/app-src//node_modules
+/app-src/node_modules
 /app-src/public/hot
 /app-src/public/storage
 /app-src/storage/*.key
