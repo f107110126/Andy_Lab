@@ -193,4 +193,13 @@ Route::prefix('tutorial')->group(function () {
 
     });
 
+    Route::prefix('authenticate')->group(function () {
+
+        Route::get('example1', 'HomeController@welcome')->middleware('auth');
+        Route::get('example2', function () {
+            return view('welcome');
+        })->middleware('guest'); // at 5.7 seems if user has logged in then it will return 404.
+
+    });
+
 });
