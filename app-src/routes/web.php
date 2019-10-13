@@ -20,11 +20,11 @@ app()->singleton('example2', function () {
     return new \App\Tutorial\Project;
 });
 
-app()->singleton('example5', function() {
+app()->singleton('example5', function () {
     return new App\Tutorial\Example5('something blablabla');
 });
 
-app()->singleton('App\Tutorial\Example5', function() {
+app()->singleton('App\Tutorial\Example5', function () {
     return new App\Tutorial\Example5('something blablabla');
 });
 
@@ -32,7 +32,9 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Auth::routes(['register' => false]);
+Auth::routes();
+
+Route::get('auth', 'HomeController@welcome')->middleware('auth','perm');
 /**
  * if want to turn off register:
  * Auth::routes(['register' => false]);

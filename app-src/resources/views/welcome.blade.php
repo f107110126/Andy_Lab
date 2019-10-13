@@ -82,6 +82,9 @@
             <div class="content">
                 <div class="title m-b-md">
                     Laravel
+                    @if (isset($name))
+                        <p>{{ $name }}</p>
+                    @endif
                 </div>
 
                 <div class="links">
