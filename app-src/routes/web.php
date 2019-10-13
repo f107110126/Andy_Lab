@@ -177,4 +177,20 @@ Route::prefix('tutorial')->group(function () {
 
     });
 
+    Route::prefix('configurations')->group(function () {
+
+        Route::get('example1', function (\App\Services\Example8 $example8) {
+            dd($example8);
+        });
+
+        Route::get('example2', function (\App\Services\Example9 $example9) {
+            dd($example9);
+        });
+
+        Route::get('example3', function () {
+            return config('sample.none.greeting');
+        });
+
+    });
+
 });

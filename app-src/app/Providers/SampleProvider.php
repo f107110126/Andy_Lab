@@ -5,6 +5,8 @@ namespace App\Providers;
 use App\Repositories\DbUserRepository;
 use App\Repositories\UserRepository;
 use App\Services\Example7;
+use App\Services\Example8;
+use App\Services\Example9;
 use Illuminate\Support\ServiceProvider;
 
 class SampleProvider extends ServiceProvider
@@ -25,6 +27,14 @@ class SampleProvider extends ServiceProvider
         });
 
         $this->app->bind(UserRepository::class, DbUserRepository::class);
+
+        $this->app->singleton(Example8::class, function () {
+            return new Example8(config('services.Sample.secret'));
+        });
+
+        $this->app->singleton(Example9::class, function () {
+            return new Example9(config('services.Sample.secret2'));
+        });
     }
 
     /**

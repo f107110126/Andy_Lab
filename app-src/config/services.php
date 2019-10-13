@@ -30,4 +30,11 @@ return [
         'region' => env('AWS_DEFAULT_REGION', 'us-east-1'),
     ],
 
+    'Sample' => [
+        'key' => 'sample public-key',
+        'secret' => 'sample secret-key',
+        'key2' => env('SAMPLE_KEY'),
+        'secret2' => env('SAMPLE_SECRET')
+    ],
+
 ];
