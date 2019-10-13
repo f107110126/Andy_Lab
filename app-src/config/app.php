@@ -175,6 +175,12 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
 
+        /*
+         * for tutorial
+         */
+
+        App\Providers\SampleProvider::class,
+
     ],
 
     /*

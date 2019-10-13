@@ -21,11 +21,19 @@ app()->singleton('example2', function () {
 });
 
 app()->singleton('example5', function () {
-    return new App\Tutorial\Example5('something blablabla');
+    return new \App\Tutorial\Example5('something blablabla');
 });
 
 app()->singleton('App\Tutorial\Example5', function () {
-    return new App\Tutorial\Example5('something blablabla');
+    return new \App\Tutorial\Example5('something blablabla');
+});
+
+app()->singleton('example7', function () {
+    return new \App\Services\Example7('this is from example6');
+});
+
+app()->singleton('App\Services\Example7', function () {
+    return new \App\Services\Example7('this is from example7');
 });
 
 Route::get('/', function () {
@@ -34,7 +42,7 @@ Route::get('/', function () {
 
 Auth::routes();
 
-Route::get('auth', 'HomeController@welcome')->middleware('auth','perm');
+Route::get('auth', 'HomeController@welcome')->middleware('auth', 'perm');
 /**
  * if want to turn off register:
  * Auth::routes(['register' => false]);
@@ -101,37 +109,6 @@ Route::prefix('tutorial')->group(function () {
     Route::delete('projects/{project}/completed-task/{task}', 'Tutorial\CompletedTasksController@destroy')->name('Tutorial.tasks.completed');
 
     Route::resource('project2s', 'Tutorial\Project2sController');
-    Route::post('project2s/{project2}/task2s', 'Tutorial\ProjectTask2sController@store')->name('project2s.task2s.store');
-    Route::post('project2s/{project2}/task2s/{task2}', 'Tutorial\CompletedTask2sController@store')->name('project2s.task2s.completed');
-    Route::delete('project2s/{project2}/task2s/{task2}', 'Tutorial\CompletedTask2sController@destroy')->name('project2s.task2s.completed');
-
-    Route::get('services/example1', function () {
-        // fetch things out of container
-        dd(app('example1'), app('example1'));
-    });
-
-    Route::get('services/example2', function () {
-        dd(app('example2'), app('example2'));
-    });
-
-    Route::get('services/example3', function () {
-        /**
-         * laravel will first try to fetch from service container,
-         * second will try fetch from class,
-         * otherwise it will fail to error.
-         */
-        dd(app('App\Tutorial\Project'));
-    });
-
-    Route::get('services/example4', function () {
-        /**
-         * if there was a class, and it need to instance other class,
-         * laravel still will try to instance that.
-         */
-        dd(app('App\Tutorial\Example'));
-    });
-
-    Route::get('services/example5', 'Tutorial\Example5Controller@show');
 
     /**
      * for a completely resource, it should support 7 situation:
@@ -143,4 +120,61 @@ Route::prefix('tutorial')->group(function () {
      * Patch somethings/id (update something)
      * Delete somethings/id (delete something)
      */
+
+    Route::post('project2s/{project2}/task2s', 'Tutorial\ProjectTask2sController@store')->name('project2s.task2s.store');
+    Route::post('project2s/{project2}/task2s/{task2}', 'Tutorial\CompletedTask2sController@store')->name('project2s.task2s.completed');
+    Route::delete('project2s/{project2}/task2s/{task2}', 'Tutorial\CompletedTask2sController@destroy')->name('project2s.task2s.completed');
+
+    Route::prefix('services')->group(function () {
+
+        Route::get('example1', function () {
+            // fetch things out of container
+            dd(app('example1'), app('example1'));
+        });
+
+        Route::get('example2', function () {
+            dd(app('example2'), app('example2'));
+        });
+
+        Route::get('example3', function () {
+            /**
+             * laravel will first try to fetch from service container,
+             * second will try fetch from class,
+             * otherwise it will fail to error.
+             */
+            dd(app('App\Tutorial\Project'));
+        });
+
+        Route::get('example4', function () {
+            /**
+             * if there was a class, and it need to instance other class,
+             * laravel still will try to instance that.
+             */
+            dd(app('App\Tutorial\Example'));
+        });
+
+        Route::get('example5', 'Tutorial\ExampleServicesController@show');
+
+        Route::get('example6', 'Tutorial\ExampleServicesController@show2');
+
+        Route::get('example7', 'Tutorial\ExampleServicesController@show3');
+
+    });
+
+    Route::prefix('providers')->group(function () {
+
+        Route::get('example1', function () {
+            dd(app('foo'));
+        });
+
+        Route::get('example2', function (\App\Services\Example7 $example7) {
+            dd($example7);
+        });
+
+        Route::get('example3', function (\App\Repositories\UserRepository $userRepository) {
+            dd($userRepository);
+        });
+
+    });
+
 });
