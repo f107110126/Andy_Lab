@@ -102,6 +102,10 @@ Route::prefix('tutorial')->group(function () {
     Route::patch('projects/{project}', 'Tutorial\ProjectsController@update')->name('Tutorial.projects.update');
     Route::delete('projects/{project}', 'Tutorial\ProjectsController@destroy')->name('Tutorial.projects.destroy');
 
+    // this is a little weird, but it is work fine.
+    // Route::resource('projects', 'Tutorial\ProjectsController')->middleware('can:view,project');
+    // Route::resource('projects', 'Tutorial\ProjectsController')->middleware('can:view,project')->except(['index', 'store', 'create']);
+
     Route::post('projects/{project}/tasks', 'Tutorial\ProjectTasksController@store')->name('Tutorial.tasks.store');
     Route::patch('projects/{project}/tasks/{task}', 'Tutorial\ProjectTasksController@update')->name('Tutorial.tasks.update');
 

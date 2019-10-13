@@ -3,6 +3,7 @@
 namespace App;
 
 use App\AuthAndPermission\Role;
+use App\Tutorial\Project;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -41,5 +42,9 @@ class User extends Authenticatable
     public function role()
     {
         return $this->belongsToMany(Role::class,'user_role');
+    }
+
+    public function owns(Project $project) {
+        return $project->owner_id === $this->id;
     }
 }

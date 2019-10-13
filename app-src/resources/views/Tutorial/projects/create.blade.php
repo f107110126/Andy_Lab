@@ -28,7 +28,7 @@
             </div>
         </div>
         <div>
-            <button type="submit">Create Projects</button>
+            <button class="button is-link" type="submit">Create Projects</button>
         </div>
         @if($errors->any())
             <div class="notification is-danger">

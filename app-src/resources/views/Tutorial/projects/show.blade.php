@@ -11,6 +11,9 @@
                 <h1>{{ $project->title }}</h1>
                 <div class="content">
                     {{ $project->description }}
+                    @can('update', $project)
+                        <p><a href="javascript:alert('can update.');">Update</a></p>
+                    @endcan
                     <p>
                         <a href="{{ Route('Tutorial.projects.edit', $project->id) }}" class="button">Edit</a>
                     </p>

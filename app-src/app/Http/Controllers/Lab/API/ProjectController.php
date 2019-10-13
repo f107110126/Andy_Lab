@@ -16,11 +16,6 @@ class ProjectController extends Controller
     public function index()
     {
         $titles = Project::all()->map->title;
-        // for now on we expect user can only view its project.
-        // $titles = Project::where('owner_id', auth()->id())->get()->map->title;
-        // auth()->id(); // it will return user_id
-        // auth()->user(); // it will return User
-        // auth()->check(); // it will return boolean
         return response()->json($titles);
     }
 

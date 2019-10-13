@@ -41,6 +41,8 @@ class Project2sController extends Controller
             'title' => 'required|min:3',
             'description' => 'required'
         ]);
+        // $validated['owner_id'] = auth()->id();
+        // Project2::create($validated + ['owner_id' => auth()->id()]);
         Project2::create($validated);
         return redirect()->route('project2s.index');
     }

@@ -8,9 +8,25 @@ use App\Tutorial\Project;
 
 class ProjectsController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->middleware('auth')->except('show');
+        // $this->middleware('auth')->only('index');
+        // $this->middleware('auth')->only(['method1', 'method2', ...]);
+        // $this->middleware('auth')->except('index');
+        // $this->middleware('auth')->except(['method1', 'method2', ...]);
+    }
+
     public function index()
     {
-        $projects = Project::all();
+        // $projects = Project::all();
+        $projects = Project::where('owner_id', auth()->id())->get();
+        // for now on we expect user can only view its project.
+        // $titles = Project::where('owner_id', auth()->id())->get()->map->title;
+        // auth()->id(); // it will return user_id
+        // auth()->user(); // it will return User
+        // auth()->check(); // it will return boolean
         /**
          * if you only need all title of projects, alternative way is:
          * $titles = Project::all()->map->title;
@@ -80,6 +96,7 @@ class ProjectsController extends Controller
             'description' => 'required'
         ]);
         $project = new Project();
+        $project->owner_id = auth()->id();
         $project->title = request()->title;
         $project->description = request()->description;
         $project->save();
@@ -107,6 +124,35 @@ class ProjectsController extends Controller
          * use method findorfail()
          */
         // $project = Project::find($id);
+        // to verify user behavior these two command quietly have same result:
+        // if ($project->owner_id !== auth()->id()) abort(403);
+        // abort_if($project->owner_id !== auth()->id(), 403);
+        // abort_if(!auth()->user()->owns($project), 403); // work if add 'owns' method in User::class
+        // abort_unless(auth()->user()->owns($project), 403); // work if add 'owns' method in User::class
+        // \Gate::allows
+        // \Gate::denies
+
+        /**
+         * // need create policy and mapping it in AuthServiceProvider
+         *
+         * sample of authorize:
+         * $this->authorize('view', $project);
+         *
+         * sample of Gate:
+         * if (\Gate::denies('view', $project) {
+         *     abort(403);
+         * }
+         *
+         * sample of Gate:
+         * abort_unless(\Gate::allows('view', $project), 403);
+         *
+         * auth()->user()->can('view', $project); // only return boolean, but not abort.
+         * auth()->user()->cannot('view', $project); // only return boolean, but not abort.
+         */
+
+        $this->authorize('view', $project);
+
+
         return view('Tutorial.projects.show')->withProject($project);
     }
 
