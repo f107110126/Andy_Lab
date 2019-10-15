@@ -23,20 +23,20 @@ class Project extends Model
      * ];
      */
 
-    public static function boot()
-    {
-        parent::boot();
-
-        /**
-         * about the other events referents: google 'eloquent event'
-         */
-
-        static::created(function ($project) {
-            Mail::to($project->owner->email)->send(
-                new ProjectCreated($project)
-            );
-        });
-    }
+//    public static function boot()
+//    {
+//        parent::boot();
+//
+//        /**
+//         * about the other events referents: google 'eloquent event'
+//         */
+//
+//        static::created(function ($project) {
+//            Mail::to($project->owner->email)->send(
+//                new ProjectCreated($project)
+//            );
+//        });
+//    }
 
     public function owner()
     {

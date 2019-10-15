@@ -120,6 +120,8 @@ class ProjectsController extends Controller
         $project->description = request()->description;
         $project->save();
 
+        event(new ProjectCreated($project));
+
         // \Mail::to($project->owner->email)->send(
         //     new ProjectCreated($project)
         // );
