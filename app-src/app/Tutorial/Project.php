@@ -2,7 +2,8 @@
 
 namespace App\Tutorial;
 
-use App\Mail\ProjectCreated;
+//use App\Mail\ProjectCreated;
+use App\Events\Tutorial\ProjectCreated;
 use App\User;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Mail;
@@ -22,6 +23,10 @@ class Project extends Model
      *     'description'
      * ];
      */
+
+    protected $dispatchesEvents = [
+        'created' => ProjectCreated::class
+    ];
 
 //    public static function boot()
 //    {
