@@ -2,8 +2,10 @@
 
 namespace App\Tutorial;
 
+use App\Mail\ProjectCreated;
 use App\User;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Mail;
 
 class Project extends Model
 {
@@ -20,6 +22,21 @@ class Project extends Model
      *     'description'
      * ];
      */
+
+    public static function boot()
+    {
+        parent::boot();
+
+        /**
+         * about the other events referents: google 'eloquent event'
+         */
+
+        static::created(function ($project) {
+            Mail::to($project->owner->email)->send(
+                new ProjectCreated($project)
+            );
+        });
+    }
 
     public function owner()
     {
