@@ -21,7 +21,7 @@ class ProjectsController extends Controller
     public function index()
     {
         // $projects = Project::all();
-        $projects = Project::where('owner_id', auth()->id())->get();
+        // $projects = Project::where('owner_id', auth()->id())->get();
         // for now on we expect user can only view its project.
         // $titles = Project::where('owner_id', auth()->id())->get()->map->title;
         // auth()->id(); // it will return user_id
@@ -42,7 +42,10 @@ class ProjectsController extends Controller
          *     }
          * ]
          */
-        return view('Tutorial.projects.index', compact('projects'));
+        // return view('Tutorial.projects.index', compact('projects'));
+        return view('Tutorial.projects.index', [
+            'projects' => auth()->user()->projects
+        ]);
     }
 
     public function create()
@@ -91,10 +94,11 @@ class ProjectsController extends Controller
          * Project::create($validated);
          * // But above columns must be 'fillable' and it is defined in model.
          */
-        request()->validate([
-            'title' => ['required', 'min:3'],
-            'description' => 'required'
-        ]);
+//        request()->validate([
+//            'title' => ['required', 'min:3'],
+//            'description' => 'required'
+//        ]);
+        $this->validateProject();
         $project = new Project();
         $project->owner_id = auth()->id();
         $project->title = request()->title;
@@ -168,6 +172,7 @@ class ProjectsController extends Controller
          * some other ways to update project
          * $project->update(request(['title', 'description']));
          */
+        $this->validateProject();
         $project = Project::find($id);
         $project->title = request()->title;
         $project->description = request()->description;
@@ -180,5 +185,13 @@ class ProjectsController extends Controller
         $project = Project::find($id);
         $project->delete();
         return redirect()->Route('Tutorial.projects.index');
+    }
+
+    protected function validateProject()
+    {
+        return request()->validate([
+            'title' => ['required', 'min:3'],
+            'description' => 'required|min:3'
+        ]);
     }
 }

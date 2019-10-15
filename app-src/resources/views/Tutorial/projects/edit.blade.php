@@ -31,6 +31,7 @@
             </div>
         </div>
     </form>
+    @include('Tutorial.projects.errors')
     <form method="post" action="{{ Route('Tutorial.projects.destroy', $project->id) }}">
         {{ method_field('delete') }}
         {{-- @method('delete') --}}

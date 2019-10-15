@@ -41,10 +41,16 @@ class User extends Authenticatable
 
     public function role()
     {
-        return $this->belongsToMany(Role::class,'user_role');
+        return $this->belongsToMany(Role::class, 'user_role');
     }
 
-    public function owns(Project $project) {
+    public function owns(Project $project)
+    {
         return $project->owner_id === $this->id;
+    }
+
+    public function projects()
+    {
+        return $this->hasMany(Project::class, 'owner_id');
     }
 }
