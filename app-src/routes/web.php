@@ -206,4 +206,13 @@ Route::prefix('tutorial')->group(function () {
 
     });
 
+    Route::prefix('fireNotify')->group(function () {
+        Route::get('/', function () {
+            $user = App\User::first();
+
+            $user->notify(new \App\Notifications\Tutorial\SubscriptionRenewalFailed);
+            return 'Done';
+        });
+    });
+
 });
