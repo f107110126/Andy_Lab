@@ -2,6 +2,7 @@
 
 namespace App\Tutorial;
 
+use App\User;
 use Illuminate\Database\Eloquent\Model;
 
 class Project extends Model
@@ -19,6 +20,12 @@ class Project extends Model
      *     'description'
      * ];
      */
+
+    public function owner()
+    {
+        return $this->belongsTo(User::class);
+    }
+
     public function tasks()
     {
         /**

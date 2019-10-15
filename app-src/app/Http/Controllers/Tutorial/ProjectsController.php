@@ -120,7 +120,7 @@ class ProjectsController extends Controller
         $project->description = request()->description;
         $project->save();
 
-        \Mail::to('u0251081@gmail.com')->send(
+        \Mail::to($project->owner->email)->send(
             new ProjectCreated($project)
         );
         return redirect()->Route('Tutorial.projects.index');
