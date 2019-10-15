@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Tutorial;
 
 use App\Http\Controllers\Controller;
+use App\Mail\ProjectCreated;
 use Illuminate\Http\Request;
 use App\Tutorial\Project;
 
@@ -41,6 +42,20 @@ class ProjectsController extends Controller
          *         title: 'title2'
          *     }
          * ]
+         */
+        /**
+         * code used int tutorial episode 28
+         * $projects = Project::where('owner_id', auth()->id())->take(2)->get();
+         * dump($projects);
+         * cache()->rememberForever('stats', function() {
+         *     return [
+         *         'lessons' => 1300,
+         *         'hours' => 50000,
+         *         'series' => 100
+         *     ];
+         * });
+         * $stats = cache()->get('stats');
+         * dump($stats);
          */
         // return view('Tutorial.projects.index', compact('projects'));
         return view('Tutorial.projects.index', [
@@ -104,6 +119,10 @@ class ProjectsController extends Controller
         $project->title = request()->title;
         $project->description = request()->description;
         $project->save();
+
+        \Mail::to('u0251081@gmail.com')->send(
+            new ProjectCreated($project)
+        );
         return redirect()->Route('Tutorial.projects.index');
 
         /**
