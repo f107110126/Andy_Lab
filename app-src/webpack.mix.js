@@ -16,5 +16,24 @@ const mix = require('laravel-mix');
  | mix.js('resources/js/app.js', 'public/js')
  |    .sass('resources/sass/app.scss', 'public/css');
  */
-mix.js('resources/js/app.js', '../js')
-   .sass('resources/sass/app.scss', '../css');
+
+/*
+ | method to compile js and css to root
+ | 1. mix.setPublicPath('../')
+ |        .js('resources/js/app.js', 'js')
+ |        .sass('resources/sass/app.scss', 'css');
+ |
+ | 2. mix.js('resources/js/app.js', 'public/js')
+ |        .sass('resources/sass/app.scss', 'public/css')
+ |        .styles([
+ |            'public/css/app.css'
+ |        ], '../css/app.css')
+ |        .scripts([
+ |            'public/js/app.js'
+ |        ], '../js/app.js');
+ */
+
+mix.setPublicPath('../')
+    .js('resources/js/app.js', 'js')
+    .sass('resources/sass/app.scss', 'css')
+    .version();
