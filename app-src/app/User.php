@@ -53,4 +53,16 @@ class User extends Authenticatable
     {
         return $this->hasMany(Project::class, 'owner_id');
     }
+
+    // based on collection, we can do this.
+    public function isVerified()
+    {
+        return (bool)$this->email_verified_at;
+    }
+
+    // or this
+    public function isNotVerified()
+    {
+        return (bool)!$this->email_verified_at;
+    }
 }

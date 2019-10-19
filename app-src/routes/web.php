@@ -215,4 +215,8 @@ Route::prefix('tutorial')->group(function () {
         });
     });
 
+    Route::prefix('collection')->group(function () {
+        Route::get('example', 'Tutorial\CollectionsController@example');
+    });
+
 });
