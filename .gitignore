@@ -10,4 +10,5 @@
 /app-src/Homestead.yaml
 /app-src/npm-debug.log
 /app-src/yarn-error.log
+/app-src/bootstrap/storage
 /.idea
