@@ -219,4 +219,10 @@ Route::prefix('tutorial')->group(function () {
         Route::get('example', 'Tutorial\CollectionsController@example');
     });
 
+    Route::prefix('session')->group(function () {
+        Route::get('write', 'Tutorial\SessionsController@write');
+        Route::get('read', 'Tutorial\SessionsController@read');
+        Route::get('writeFlash', 'Tutorial\SessionsController@writeFlash');
+    });
+
 });
