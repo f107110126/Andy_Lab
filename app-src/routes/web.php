@@ -225,4 +225,12 @@ Route::prefix('tutorial')->group(function () {
         Route::get('writeFlash', 'Tutorial\SessionsController@writeFlash');
     });
 
+    Route::prefix('test')->group(function () {
+        Route::post('teams', function () {
+            $validated = request()->validate(['name' => 'required']);
+            \App\Tutorial\Team::create($validated);
+            return redirect(url('/'));
+        })->name('teams.store');
+    });
+
 });

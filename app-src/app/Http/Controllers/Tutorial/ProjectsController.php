@@ -183,7 +183,9 @@ class ProjectsController extends Controller
 
     public function edit($id)
     {
-        $project = Project::find($id);
+        // $project = Project::find($id);
+        $project = Project::findorfail($id);
+        $this->authorize('edit', $project);
         return view('Tutorial.projects.edit', compact('project'));
     }
 

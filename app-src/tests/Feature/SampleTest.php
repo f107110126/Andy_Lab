@@ -4,6 +4,7 @@ namespace Tests\Feature;
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
+use Illuminate\Foundation\Testing\WithoutMiddleware;
 use Tests\TestCase;
 
 class SampleTest extends TestCase
@@ -18,7 +19,15 @@ class SampleTest extends TestCase
      * use RefreshDatabase;
      * above this line will undo everything to database.
      * to will be sure every test will be same database status.
+     * in fact, in real test, it will do 'php artisan
      */
+    // use RefreshDatabase;
+    use WithoutMiddleware;
+    /*
+     * and here if u need post patch delete or something else
+     * must use it, or it will not work.
+     */
+
     // public function testExample()
     // {
     //     $response = $this->get('/');
@@ -55,14 +64,16 @@ class SampleTest extends TestCase
         $this->actingAs(factory('App\User')->create());
 
         // for the condition is reusable
-        $attributes = ['name' => 'Acme'];
+        $attributes = [
+            'name' => 'Acme'
+        ];
         // When: Then hit the endpoint /teams to create a new team, while passing the necessary data.
 //        $this->post('/teams', [
 //            // 'owner_id' => '',
 //            'name' => 'Acme'
 //        ]);
 
-        $this->post('/teams', $attributes);
+        $this->post(route('teams.store'), $attributes);
 
         // Then: There should be a new in database.
 //        $this->assertDatabaseHas('teams', ['name' => 'Acme']);
