@@ -5,6 +5,10 @@
 
     RewriteEngine On
 
+    RewriteBase /Andy_Lab/
+    RewriteCond $0 ^APP-SRC [NC]
+    RewriteRule .* 404 [L]
+
     # Handle Authorization Header
     RewriteCond %{HTTP:Authorization} .
     RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]
