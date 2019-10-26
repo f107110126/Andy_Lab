@@ -225,12 +225,25 @@ Route::prefix('tutorial')->group(function () {
         Route::get('writeFlash', 'Tutorial\SessionsController@writeFlash');
     });
 
-    Route::prefix('test')->group(function () {
+    Route::prefix('tests')->group(function () {
         Route::post('teams', function () {
             $validated = request()->validate(['name' => 'required']);
-            \App\Tutorial\Team::create($validated);
+            // $validated['user_id'] = auth()->id();
+            // \App\Tutorial\Team::create($validated);
+            auth()->user()->team()->create($validated);
             return redirect(url('/'));
-        })->name('teams.store');
+        })->middleware('auth')->name('teams.store');
+        Route::get('teams', function () {
+            return view('test');
+        })->middleware('auth');
     });
 
+});
+
+Route::get('/clear-cache-all', function () {
+    Artisan::call('cache:clear');
+    Artisan::call('config:clear');
+    Artisan::call('route:clear');
+    Artisan::call('view:clear');
+    return redirect('/');
 });

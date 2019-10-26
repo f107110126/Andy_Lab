@@ -21,8 +21,10 @@ class SampleTest extends TestCase
      * to will be sure every test will be same database status.
      * in fact, in real test, it will do 'php artisan
      */
-    // use RefreshDatabase;
-    use WithoutMiddleware;
+    use RefreshDatabase;
+
+    // use WithoutMiddleware;
+
     /*
      * and here if u need post patch delete or something else
      * must use it, or it will not work.
@@ -46,10 +48,20 @@ class SampleTest extends TestCase
      * or a function use 'test' at start of method name:
      * public function test_this_method() {...}
      */
+    protected function init_DB()
+    {
+        $this->artisan('migrate', [
+            '--path' => 'database/migrations/Tutorial'
+        ]);
+        return true;
+    }
+
     /** @test */
     public function guests_may_not_create_teams()
     {
-        $this->post('/teams')->assertRedirect('/login');
+        // $this->withoutExceptionHandling();
+        $this->init_DB();
+        $this->post(route('teams.store'))->assertRedirect('/login');
     }
 
     /** @test */
@@ -58,6 +70,7 @@ class SampleTest extends TestCase
         // by default, test will handling every exception
         // so if debug need review the exception
         // add this line:
+        $this->init_DB();
         $this->withoutExceptionHandling();
 
         // Given: I am a user who is logged in.
@@ -73,7 +86,7 @@ class SampleTest extends TestCase
 //            'name' => 'Acme'
 //        ]);
 
-        $this->post(route('teams.store'), $attributes);
+        $this->post('tutorial/tests/teams', $attributes);
 
         // Then: There should be a new in database.
 //        $this->assertDatabaseHas('teams', ['name' => 'Acme']);

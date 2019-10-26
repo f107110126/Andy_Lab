@@ -4,6 +4,7 @@ namespace App;
 
 use App\AuthAndPermission\Role;
 use App\Tutorial\Project;
+use App\Tutorial\Team;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -64,5 +65,10 @@ class User extends Authenticatable
     public function isNotVerified()
     {
         return (bool)!$this->email_verified_at;
+    }
+
+    public function team()
+    {
+        return $this->hasOne(Team::class);
     }
 }
