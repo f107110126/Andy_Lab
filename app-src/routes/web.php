@@ -252,6 +252,7 @@ Route::prefix('MultiAuth')->group(function () {
     Route::prefix('admin')->group(function () {
         Route::get('/login', 'MultiAuth\Auth\LoginController@showLoginForm')->name('admin.login');
         Route::post('/login', 'MultiAuth\Auth\LoginController@login')->name('admin.login.submit');
+        Route::post('/logout', 'MultiAuth\Auth\LoginController@logout')->name('admin.logout');
         Route::get('/register', 'MultiAuth\Auth\RegisterController@showRegistrationForm')->name('admin.register');
         Route::post('/register', 'MultiAuth\Auth\RegisterController@register')->name('admin.register.submit');
         Route::get('/', 'MultiAuth\AdminController@index')->name('admin.home');
