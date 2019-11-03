@@ -258,3 +258,10 @@ Route::prefix('MultiAuth')->group(function () {
         Route::get('/', 'MultiAuth\AdminController@index')->name('admin.home');
     });
 });
+
+Route::prefix('NgTest')->group(function () {
+    Route::resource('NgProject', 'NgTest\NgProjectsController');
+    Route::get('/{any}', function ($any) {
+        return view('NgTest.index');
+    })->where('any', '.*');
+});
