@@ -238,6 +238,20 @@ Route::prefix('tutorial')->group(function () {
         })->middleware('auth');
     });
 
+    Route::post('uploadsHandler', function () {
+        $request = request(); // instance a request object
+        // let us assume your upload file has name attribute with 'tstFile'
+        if ($request->hasFile('tstFile')) { // if has file then...
+            $file = $request->file('tstFile');  // instance a file object
+            if ($file->isValid()) { // test whether file valid
+                $filename = $file->getClientOriginalName(); // file's original name
+                $extension = $file->getClientOriginalExtension(); // file's extension
+                $filename = $filename . time() . "." . $extension; // setup the new file name for move action
+                $file->move('uploads/tst', $filename); // move to 'uploads/tst' directory with new filename
+            }
+            pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME); // fetch original name only
+        }
+    });
 });
 
 Route::get('/clear-cache-all', function () {
