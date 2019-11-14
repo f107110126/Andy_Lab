@@ -41,6 +41,10 @@ class CollectionsController extends Controller
         $songs = collect([$song1, $song2, $song3]);
         $songsNames = $songs->pluck('name');
         $songsLengths = $songs->pluck('length');
+
+        $nums = collect([1, 2, 3]);
+        $nums->contains(1); // return true
+        $nums->contains(4); // return false
         /*
          *
          */
