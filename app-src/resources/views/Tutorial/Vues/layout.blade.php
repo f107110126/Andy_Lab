@@ -12,6 +12,7 @@
 
     <!-- for vue -->
     <script src="{{ asset('asset/vue-1.0.24.js') }}"></script>
+    <script src="{{ asset('asset/vue-resource-1.5.1-dist/vue-resource.js') }}"></script>
     <style>
         .completed {
             text-decoration: line-through;

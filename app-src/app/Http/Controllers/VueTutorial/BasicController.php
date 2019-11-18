@@ -5,6 +5,7 @@ namespace App\Http\Controllers\VueTutorial;
 use App\Http\Controllers\Controller;
 use App\Tutorial\VueTask;
 use Illuminate\Http\Request;
+use Laravel\Ui\Presets\Vue;
 
 class BasicController extends Controller
 {
@@ -36,6 +37,10 @@ class BasicController extends Controller
         switch ($section) {
             case 10:
                 return $this->tutorial10();
+                break;
+            case 11:
+                return view('Tutorial.Vues.section-011');
+                break;
             default:
                 return abort(404);
         }
@@ -50,5 +55,10 @@ class BasicController extends Controller
     public function apiTasks()
     {
         return VueTask::all();
+    }
+
+    public function apiTasksShow(VueTask $task)
+    {
+        return $task;
     }
 }
