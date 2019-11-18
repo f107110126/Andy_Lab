@@ -33,6 +33,10 @@ const mix = require('laravel-mix');
  |        ], '../js/app.js');
  */
 
+/*
+ | mix.setPublicPath('../')
+ |     .js('resources/assets/js/app.js', 'js4vue');
+ */
 mix.setPublicPath('../')
     .js('resources/js/app.js', 'js')
     .sass('resources/sass/app.scss', 'css')

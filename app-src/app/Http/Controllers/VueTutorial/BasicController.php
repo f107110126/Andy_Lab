@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\VueTutorial;
 
 use App\Http\Controllers\Controller;
+use App\Tutorial\Coupon;
 use App\Tutorial\VueTask;
 use Illuminate\Http\Request;
 use Laravel\Ui\Presets\Vue;
@@ -13,6 +14,7 @@ class BasicController extends Controller
     {
         if ($section > 9) return $this->map($section);
         $section_str = str_pad($section, 3, 0, STR_PAD_LEFT);
+        print 'app-src/resources/views/Tutorial/Vues/section-' . $section_str . '.blade.php';
         if (file_exists('app-src/resources/views/Tutorial/Vues/section-' . $section_str . '.blade.php'))
             return view('Tutorial.Vues.section-' . $section_str);
         else
@@ -44,6 +46,9 @@ class BasicController extends Controller
             case 12:
                 return view('Tutorial.Vues.section-012');
                 break;
+            case 13:
+                return view('Tutorial.Vues.section-013');
+                break;
             default:
                 return abort(404);
         }
@@ -63,5 +68,10 @@ class BasicController extends Controller
     public function apiTasksShow(VueTask $task)
     {
         return $task;
+    }
+
+    public function coupons($code)
+    {
+        return Coupon::whereCode($code)->firstOrFail();
     }
 }

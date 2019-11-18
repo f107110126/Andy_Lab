@@ -258,6 +258,7 @@ Route::prefix('tutorial')->group(function () {
         Route::get('{section}', 'VueTutorial\BasicController@TutorialsV1')->name('vue.section');
         Route::get('api/tasks', 'VueTutorial\BasicController@apiTasks')->name('vue.api.tasks');
         Route::get('api/tasks/{task}', 'VueTutorial\BasicController@apiTasksShow')->name('vue.api.tasks.show');
+        Route::get('api/coupons/{code}', 'VueTutorial\BasicController@coupons')->name('vue.api.coupons');
     });
 });
 
