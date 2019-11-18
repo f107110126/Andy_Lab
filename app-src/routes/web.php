@@ -252,6 +252,12 @@ Route::prefix('tutorial')->group(function () {
             pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME); // fetch original name only
         }
     });
+
+    Route::prefix('vue-1.0')->group(function () {
+        Route::get('/', 'VueTutorial\BasicController@TutorialsV1');
+        Route::get('{section}', 'VueTutorial\BasicController@TutorialsV1')->name('vue.section');
+        Route::get('api/tasks', 'VueTutorial\BasicController@apiTasks')->name('vue.api.tasks');
+    });
 });
 
 Route::get('/clear-cache-all', function () {
