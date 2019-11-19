@@ -49,6 +49,9 @@ class BasicController extends Controller
             case 13:
                 return view('Tutorial.Vues.section-013');
                 break;
+            case 14:
+                return view('Tutorial.Vues.section-014');
+                break;
             default:
                 return abort(404);
         }
