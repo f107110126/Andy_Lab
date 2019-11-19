@@ -12,9 +12,8 @@ class BasicController extends Controller
 {
     public function TutorialsV1($section = 0)
     {
-        if ($section > 9) return $this->map($section);
+        if ($section > 9 && $section < 11) return $this->map($section);
         $section_str = str_pad($section, 3, 0, STR_PAD_LEFT);
-        print 'app-src/resources/views/Tutorial/Vues/section-' . $section_str . '.blade.php';
         if (file_exists('app-src/resources/views/Tutorial/Vues/section-' . $section_str . '.blade.php'))
             return view('Tutorial.Vues.section-' . $section_str);
         else
@@ -39,18 +38,6 @@ class BasicController extends Controller
         switch ($section) {
             case 10:
                 return $this->tutorial10();
-                break;
-            case 11:
-                return view('Tutorial.Vues.section-011');
-                break;
-            case 12:
-                return view('Tutorial.Vues.section-012');
-                break;
-            case 13:
-                return view('Tutorial.Vues.section-013');
-                break;
-            case 14:
-                return view('Tutorial.Vues.section-014');
                 break;
             default:
                 return abort(404);
