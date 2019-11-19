@@ -259,6 +259,11 @@ Route::prefix('tutorial')->group(function () {
         Route::get('api/tasks', 'VueTutorial\BasicController@apiTasks')->name('vue.api.tasks');
         Route::get('api/tasks/{task}', 'VueTutorial\BasicController@apiTasksShow')->name('vue.api.tasks.show');
         Route::get('api/coupons/{code}', 'VueTutorial\BasicController@coupons')->name('vue.api.coupons');
+        Route::delete('api/posts/{post}', function ($post) {
+            return response()->json([
+                'message' => 'post: ' . $post . ' has been deleted.'
+            ]);
+        })->name('vue.api.delete');
     });
 });
 
