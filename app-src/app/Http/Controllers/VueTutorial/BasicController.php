@@ -12,6 +12,7 @@ class BasicController extends Controller
 {
     public function TutorialsV1($section = 0)
     {
+        if ($section === '13-2') return view('Tutorial.Vues.section-013-2');
         if ($section > 9 && $section < 11) return $this->map($section);
         $section_str = str_pad($section, 3, 0, STR_PAD_LEFT);
         if (file_exists('app-src/resources/views/Tutorial/Vues/section-' . $section_str . '.blade.php'))

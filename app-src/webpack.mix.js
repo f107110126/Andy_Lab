@@ -37,6 +37,14 @@ const mix = require('laravel-mix');
  | mix.setPublicPath('../')
  |     .js('resources/assets/js/app.js', 'js4vue');
  */
+
+/*
+ | mix.setPublicPath('../vue-1.0/')
+ |     .js('resources/vue-1.0/js/app.js', 'js')
+ |     .sass('resources/vue-1.0/sass/app.scss', 'css');
+ */
+
+// main setting
 mix.setPublicPath('../')
     .js('resources/js/app.js', 'js')
     .sass('resources/sass/app.scss', 'css')
