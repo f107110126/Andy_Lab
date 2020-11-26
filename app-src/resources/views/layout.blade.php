@@ -30,7 +30,7 @@ Released   : 20140225
 <link href="{{ asset('css/default.css') }}" rel="stylesheet"/>
 <link href="{{ asset('css/fonts.css') }}" rel="stylesheet"/>
 
-<link rel="stylesheet" href="{{ asset(mix('/css/app.css')) }}">
+@yield('head')
 
 <!--[if IE 6]><link href="default_ie6.css" rel="stylesheet" type="text/css" /><![endif]-->
 

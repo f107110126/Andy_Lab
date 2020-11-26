@@ -62,6 +62,12 @@ Route::get('/about', function () {
     return view('about', ['articles' => $articles]);
 });
 
-Route::get('/articles/{article}', 'ArticlesController@show');
+Route::name('articles.')->group(function () {
+    Route::get('/articles', 'ArticlesController@index')->name('index');
+    Route::get('/articles/create', 'ArticlesController@create');
+    Route::get('/articles/{article}', 'ArticlesController@show')->name('show');
+    Route::get('/articles/{article}/edit', 'ArticlesController@edit');
 
-Route::get('/articles', 'ArticlesController@index');
+    Route::post('/articles', 'ArticlesController@store')->name('store');
+    Route::put('/articles/{article}', 'ArticlesController@update')->name('update');
+});
