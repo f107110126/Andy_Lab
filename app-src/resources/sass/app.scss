@@ -6,3 +6,13 @@ $primary: red;
 body {
     color: $primary;
 }
+
+// generate by command "php artisan ui bootstrap"
+// Fonts
+@import url('https://fonts.googleapis.com/css?family=Nunito');
+
+// Variables
+@import 'variables';
+
+// Bootstrap
+@import '~bootstrap/scss/bootstrap';
