@@ -6,10 +6,15 @@ use App\Article;
 
 class ArticlesController extends Controller
 {
-    public function show($articleId)
+    // public function show($articleId)
+    // !! notice the variable name "$article" should as same with route/web.php
+    // like Route::get('/articles/{article})
+    public function show(Article $article)
     {
         // show a single resource.
-        return view('articles.show', ['article' => Article::find($articleId)]);
+        // return view('articles.show', ['article' => Article::find($articleId)]);
+        // $article = Article::findOrFail($articleId);
+        return view('articles.show', compact('article'));
     }
 
     public function index()
@@ -29,53 +34,91 @@ class ArticlesController extends Controller
     {
         // persist the new resource
         // return request()->all();
-        // version 001
-        request()->validate([
-            'title' => ['required', 'min:3', 'max:255'],
-            'excerpt' => 'required',
-            'body' => 'required',
-        ]);
+        // version 002
+        // request()->validate([
+        //     'title' => ['required', 'min:3', 'max:255'],
+        //     'excerpt' => 'required',
+        //     'body' => 'required',
+        // ]);
 
-        $article = new Article();
+        // // notice use this method, the column's names must
+        // // be setup as fillable at model.
+        // Article::create([
+        //     'title' => request('title'),
+        //     'excerpt' => request('excerpt'),
+        //     'body' => request('body'),
+        // ]);
 
-        $article->title = request('title');
-        $article->excerpt = request('excerpt');
-        $article->body = request('body');
+        // version 003
+        // $validatedAttributes = request()->validate([
+        //     'title' => ['required', 'min:3', 'max:255'],
+        //     'excerpt' => 'required',
+        //     'body' => 'required',
+        // ]);
 
-        $article->save();
+        // Article::create($validatedAttributes);
+
+        // version 004
+        // Article::create(request()->validate([
+        //     'title' => ['required', 'min:3', 'max:255'],
+        //     'excerpt' => 'required',
+        //     'body' => 'required',
+        // ]));
+
+        // version 005
+        Article::create($this->validateArticle());
 
         return redirect('/articles');
     }
 
-    public function edit($articleId)
+    public function edit(Article $article)
     {
         // show a view to edit an existing resource.
-        $article = Article::find($articleId);
         return view('articles.edit', compact('article'));
     }
 
-    public function update($articleId)
+    public function update(Article $article)
     {
         // persist the edited resource.
-        request()->validate([
-            'title' => ['required', 'min:3', 'max:255'],
-            'excerpt' => 'required',
-            'body' => 'required',
-        ]);
-        
-        $article = Article::find($articleId);
+        // version 002
+        // request()->validate([
+        //     'title' => ['required', 'min:3', 'max:255'],
+        //     'excerpt' => 'required',
+        //     'body' => 'required',
+        // ]);
 
-        $article->title = request('title');
-        $article->excerpt = request('excerpt');
-        $article->body = request('body');
+        // $article->title = request('title');
+        // $article->excerpt = request('excerpt');
+        // $article->body = request('body');
 
-        $article->save();
-        return redirect('/articles/' . $article->id);
+        // $article->save();
+
+        // version 004
+        // $article->update(request()->validate([
+        //     'title' => ['required', 'min:3', 'max:255'],
+        //     'excerpt' => 'required',
+        //     'body' => 'required',
+        // ]));
+
+        // version 005
+        $article->update($this->validateArticle());
+
+        return redirect(route('articles.show', $article));
     }
 
     public function destory()
     {
         // delete the resource
+    }
+
+    // version 005
+    protected function validateArticle()
+    {
+        return request()->validate([
+            'title' => ['required', 'min:3', 'max:255'],
+            'excerpt' => 'required',
+            'body' => 'required',
+        ]);
     }
 }
 
