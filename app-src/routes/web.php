@@ -1,5 +1,7 @@
 <?php
 
+use App\Article;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -45,3 +47,21 @@ Route::get('/posts/{post}', function ($post) {
 });
 
 Route::get('/posts2/{post}', 'PostsController@show');
+
+Route::get('/contact', function () {
+    return view('contact');
+});
+
+Route::get('/about', function () {
+    // $articles = Article::all();
+    // $articles = Article::take(2)->get();
+    // $articles = Article::paginate(2); # 2 data for per page
+    // $articles = Article::latest()->get(); # order by created_at
+    // $articles = Article::latest('updated_at')->get(); # order by updated_at
+    $articles = Article::latest()->take(3)->get();
+    return view('about', ['articles' => $articles]);
+});
+
+Route::get('/articles/{article}', 'ArticlesController@show');
+
+Route::get('/articles', 'ArticlesController@index');

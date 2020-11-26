@@ -1,18 +1,7 @@
 @extends('layout')
 
-@section('header')
-    <div id="header-featured">
-		<div id="banner-wrapper">
-			<div id="banner" class="container">
-				<h2>Maecenas luctus lectus</h2>
-				<p>This is <strong>SimpleWork</strong>, a free, fully standards-compliant CSS template designed by <a href="http://templated.co" rel="nofollow">TEMPLATED</a>. The photos in this template are from <a href="http://fotogrph.com/"> Fotogrph</a>. This free template is released under the <a href="http://templated.co/license">Creative Commons Attribution</a> license, so you're pretty much free to do whatever you want with it (even use it commercially) provided you give us credit for it. Have fun :) </p>
-                <a href="#" class="button">Etiam posuere</a>
-            </div>
-		</div>
-	</div>
-@endsection
-
 @section('content')
+<div id="header-wrapper">
 <div id="wrapper">
 	<div id="page" class="container">
 		<div id="content">
@@ -26,18 +15,12 @@
 		</div>
 		<div id="sidebar">
 			<ul class="style1">
-				<li class="first">
-					<h3>Amet sed volutpat mauris</h3>
-					<p><a href="#">In posuere eleifend odio. Quisque semper augue mattis wisi. Pellentesque viverra vulputate enim. Aliquam erat volutpat.</a></p>
-				</li>
-				<li>
-					<h3>Sagittis diam dolor sit amet</h3>
-					<p><a href="#">In posuere eleifend odio. Quisque semper augue mattis wisi. Pellentesque viverra vulputate enim. Aliquam erat volutpat.</a></p>
-				</li>
-				<li>
-					<h3>Maecenas ac quam risus</h3>
-					<p><a href="#">In posuere eleifend odio. Quisque semper augue mattis wisi. Pellentesque viverra vulputate enim. Aliquam erat volutpat.</a></p>
-				</li>
+			@foreach($articles as $index => $article)
+			<li class="{{ $index === 0 ? 'first' : '' }}">
+			<a href="{{ url('/articles/'. $article->id) }}"><h3>{{ $article->title }}</h3></a>
+			<p>{{ $article->excerpt }}</p>
+			</li>
+			@endforeach
 			</ul>
 			<div id="stwo-col">
 				<div class="sbox1">

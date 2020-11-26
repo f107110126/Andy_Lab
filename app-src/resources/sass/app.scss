@@ -1,1 +1,8 @@
-//
+// normally you can run "npm run dev" to compile this
+// or can run "npm run watch" if want compile when every change
+
+$primary: red;
+
+body {
+    color: $primary;
+}

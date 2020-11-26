@@ -14,3 +14,4 @@ const mix = require('laravel-mix');
 mix.setPublicPath('../');
 mix.js('resources/js/app.js', 'js')
     .sass('resources/sass/app.scss', 'css');
+    // mix.version(); # generate version code
