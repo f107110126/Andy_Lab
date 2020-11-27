@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Example;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -28,6 +29,12 @@ class AppServiceProvider extends ServiceProvider
         //     $foo = 'foobar'; // if not setup foo, will not auto-resolve
         //     return new App\Example3($collaborator, $foo);
         //     // for path 'p5';
+        // });
+
+        $this->app->bind('example', function () {return new Example;});
+        // if there has default value
+        // $this->app->bind(Example::class, function () {
+        //     return new Example('default-value');
         // });
     }
 

@@ -75,6 +75,8 @@ Route::name('articles.')->group(function () {
 Route::prefix('auth')->group(function () {
     Route::get('/', function () {
         return view('default-welcome');
+        // same as
+        // return Illuminate\Support\Facades\View::make('default-welcome');
     });
     Auth::routes();
     Route::get('/home', 'HomeController@index')->name('home');
