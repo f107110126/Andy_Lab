@@ -3,3 +3,30 @@
 3. Prepare a unique token and associate it with the user's account.
 4. Send an email with a unique link back to our site that confirms email ownership.
 5. Link back to website, confirm the token, and set a new password.
+
+collections
+$collection->first(); $collection->last()
+$collection->where('index', 'value');
+$collection->first(function($tag) {return strlen($tag->name) > 5;})
+
+collect(['one', 'two', 'three', 'four', ['five', 'six'], 'seven'])->flatten();
+--> collect(['one', 'two', 'three', 'four', 'five', 'six', 'seven']);
+
+collect([1, 2, 3, 4, 5, 6, 7, 8, 9])->filter(function ($item) { return $item >= 5; })
+--> collect([5, 6, 7, 8, 9])
+collect([5, 6, 7, 8, 9])->map(function ($item) { return $item * 3; })
+--> collect([15, 18, 21, 24, 27])
+
+Article::with('tags')->get()->pluck('tags.*.name')->collapse();
+Article::with('tags')->get()->pluck('tags.*.name')->collapse()->unique();
+Article::with('tags')->get()->pluck('tags.*.name')->collapse()->unique()->map(function($item) {return ucwords($item);});
+
+collect([
+    ['name' => 'andy', 'gender' => 'male'],
+    ['name' => 'jason', 'gender' => 'male'],
+    ['name' => 'jane', gender' => 'femail']
+])->pluck('name')
+--> collect(['andy', 'jason', 'jane'])
+
+collect([1, 2, 3, 4, 4, 5, 6, 7, 7, 8, 9])->unique()
+--> collect([1, 2, 3, 4, 5, 6, 7, 8, 9])
