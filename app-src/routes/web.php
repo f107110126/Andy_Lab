@@ -81,3 +81,16 @@ Route::prefix('auth')->group(function () {
     // Route::get('/home', 'HomeController@index')->name('home')->middleware('auth');
     // trigger this uri must be login
 });
+
+Route::prefix('service-container')->group(function () {
+    Route::get('/', function () {
+        $container = new App\Container();
+        $container->bind('example', function () {
+            return new App\Example();
+        });
+
+        $example = $container->resolve('example');
+        // ddd($container, $example);
+        $example->go();
+    });
+});
