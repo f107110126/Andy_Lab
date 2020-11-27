@@ -71,3 +71,13 @@ Route::name('articles.')->group(function () {
     Route::post('/articles', 'ArticlesController@store')->name('store');
     Route::put('/articles/{article}', 'ArticlesController@update')->name('update');
 });
+
+Route::prefix('auth')->group(function () {
+    Route::get('/', function () {
+        return view('default-welcome');
+    });
+    Auth::routes();
+    Route::get('/home', 'HomeController@index')->name('home');
+    // Route::get('/home', 'HomeController@index')->name('home')->middleware('auth');
+    // trigger this uri must be login
+});
