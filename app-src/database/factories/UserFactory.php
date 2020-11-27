@@ -15,7 +15,12 @@ use Illuminate\Support\Str;
 | your application. Factories provide a convenient way to generate new
 | model instances for testing / seeding your application's database.
 |
-*/
+ */
+
+// to use this factory at tinker, use command:
+// factory(App\User::class)->create();
+// for create 5 data at same time:
+// factory(App\User::class, 5)->create();
 
 $factory->define(User::class, function (Faker $faker) {
     return [

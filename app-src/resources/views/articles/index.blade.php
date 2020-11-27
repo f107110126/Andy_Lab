@@ -8,15 +8,17 @@
     <div id="wrapper">
         <div id="page" class="container">
             <div id="content">
-                @foreach ($articles as $article)
+                @forelse ($articles as $article)
                     <div class="title">
-                        <a href="{{ url('/articles/' . $article->id) }}">
+                        <a href="{{ $article->path() }}">
                             <h2>{{ $article->title }}</h2>
                         </a>
                     </div>
                     <p><img src="images/banner.jpg" alt="" class="image image-full" /> </p>
                     <p>{{ $article->body }}</p>
-                @endforeach
+                @empty
+                    <p>No relevent articles yet.</p>
+                @endforelse
                 <div class="mx-auto" style="width: fit-content">
                     {{ $articles->links() }}
                 </div>

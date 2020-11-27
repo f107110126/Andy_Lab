@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Article;
+use App\Tag;
 
 class ArticlesController extends Controller
 {
@@ -21,13 +22,19 @@ class ArticlesController extends Controller
     {
         // Render a list of a resource.
         // return view('articles.index', ['articles' => Article::latest()->simplePaginate(2)]);
-        return view('articles.index', ['articles' => Article::latest()->paginate(2)]);
+        if (request('tag')) {
+            $articles = Tag::where('name', request('tag'))->firstOrFail()->articles()->paginate(2);
+            $articles->appends(['tag' => request('tag')]); // for let pagination append uri
+        } else {
+            $articles = Article::latest()->paginate(2);
+        }
+        return view('articles.index', compact('articles'));
     }
 
     public function create()
     {
         // show a view to create a new resource.
-        return view('articles.create');
+        return view('articles.create', ['tags' => Tag::all()]);
     }
 
     public function store()
@@ -66,7 +73,19 @@ class ArticlesController extends Controller
         // ]));
 
         // version 005
-        Article::create($this->validateArticle());
+        // Article::create($this->validateArticle());
+
+        // version 006
+        $article = new Article($this->validateArticle());
+
+        // version 007
+        // $this->validateArticle();
+        // $article = new Article(request(['title', 'excerpt', 'body']));
+
+        $article->user_id = 1;
+        $article->save();
+
+        $article->tags()->attach(request('tags'));
 
         return redirect('/articles');
     }
@@ -74,11 +93,14 @@ class ArticlesController extends Controller
     public function edit(Article $article)
     {
         // show a view to edit an existing resource.
-        return view('articles.edit', compact('article'));
+        $tags = Tag::all();
+        return view('articles.edit', compact(['article', 'tags']));
     }
 
     public function update(Article $article)
     {
+        // alternative find many usage:
+        // $articles = Article::findMany([1, 2]); // find article with id = 1 or id = 2
         // persist the edited resource.
         // version 002
         // request()->validate([
@@ -102,6 +124,12 @@ class ArticlesController extends Controller
 
         // version 005
         $article->update($this->validateArticle());
+        // $article->tags()->attach(request('tags'));
+        $new_tags = collect(request('tags'));
+        $old_tags = $article->tags->pluck('id');
+        $article->tags()->attach($new_tags->diff($old_tags));
+        $article->tags()->detach($old_tags->diff($new_tags));
+        // dd($new_tags->diff($old_tags), $old_tags->diff($new_tags));
 
         return redirect(route('articles.show', $article));
     }
@@ -118,6 +146,7 @@ class ArticlesController extends Controller
             'title' => ['required', 'min:3', 'max:255'],
             'excerpt' => 'required',
             'body' => 'required',
+            'tags' => 'exists:tags,id',
         ]);
     }
 }

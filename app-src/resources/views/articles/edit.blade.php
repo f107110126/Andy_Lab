@@ -15,7 +15,7 @@
                 <div class="field">
                     <label for="title" class="label">Title</label>
                     <div class="control">
-                        <input type="text" class="input" name="title" id="title" value="{{ $article-> title }}">
+                        <input type="text" class="input" name="title" id="title" value="{{ $article->title }}">
                     </div>
                 </div>
                 <div class="field">
@@ -28,6 +28,21 @@
                     <label for="body" class="label">Body</label>
                     <div class="control">
                         <textarea class="textarea" name="body" id="body">{{ $article->body }}</textarea>
+                    </div>
+                </div>
+                <div class="field">
+                    <label for="tags" class="label">Tags</label>
+                    <div class="select is-multiple control">
+                        <select name="tags[]" id="tags" multiple>
+                            @foreach ($tags as $tag)
+                                <option value="{{ $tag->id }}"
+                                    {{ $article->tags->where('id', $tag->id)->first() ? 'selected' : '' }}>{{ $tag->name }}
+                                </option>
+                            @endforeach
+                        </select>
+                        @error('tags')
+                            <p class="help is-danger">{{ $message }}</p>
+                        @enderror
                     </div>
                 </div>
                 <div class="field is-grouped">

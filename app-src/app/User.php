@@ -2,7 +2,6 @@
 
 namespace App;
 
-use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
@@ -36,4 +35,21 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function articles()
+    {
+        return $this->hasMany(Article::class);
+        // "select * from articles where user_id = {$this->id};";
+    }
+
+    // public function projects()
+    // {
+    //     return $this->hasMany(Project::class);
+    //     // "select * from projects where user_id = {$this->id};";
+    // }
 }
+
+// $user = User::find(1); // select * from user where id = 1
+// $user->projects; // select * from projects where user_id = $user->id
+// $user->projects->split(3)
+// $user->projects->groupBy
