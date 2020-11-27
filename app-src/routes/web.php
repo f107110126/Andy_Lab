@@ -83,6 +83,16 @@ Route::prefix('auth')->group(function () {
 });
 
 Route::prefix('service-container')->group(function () {
+    app()->bind('example', function () {
+        $foo = config('services.foo');
+        return new App\Example($foo);
+    });
+    app()->bind('App\Example3', function () {
+        $collaborator = new App\Collaborator();
+        $foo = 'foobar'; // if not setup foo, will not auto-resolve
+        return new App\Example3($collaborator, $foo);
+        // for path 'p5';
+    });
     Route::get('/', function () {
         $container = new App\Container();
         $container->bind('example', function () {
@@ -93,4 +103,16 @@ Route::prefix('service-container')->group(function () {
         // ddd($container, $example);
         $example->go();
     });
+    Route::get('/p2', function () {
+        $example1 = resolve('example');
+        $example2 = resolve(App\Example::class);
+        // $example3 = resolve(App\Example2::class);
+        $example3 = app()->make(App\Example2::class);
+        ddd($example1, $example2, $example3);
+    });
+    Route::get('/p3', function (App\Example2 $example) {
+        ddd($example);
+    });
+    Route::get('/p4', 'ExamplesController@home1');
+    Route::get('/p5', 'ExamplesController@home2');
 });
