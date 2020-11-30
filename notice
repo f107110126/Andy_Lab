@@ -30,3 +30,9 @@ collect([
 
 collect([1, 2, 3, 4, 4, 5, 6, 7, 7, 8, 9])->unique()
 --> collect([1, 2, 3, 4, 5, 6, 7, 8, 9])
+
+to export template of email:
+php artisan vendor:publish --tag=laravel-mail
+
+by default markdon will use template in views
+also can setup with config/mail.php

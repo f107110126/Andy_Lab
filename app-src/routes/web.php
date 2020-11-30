@@ -48,9 +48,9 @@ Route::get('/posts/{post}', function ($post) {
 
 Route::get('/posts2/{post}', 'PostsController@show');
 
-Route::get('/contact', function () {
-    return view('contact');
-});
+Route::get('/contact', 'ContactController@show');
+
+Route::post('/contact', 'ContactController@store');
 
 Route::get('/about', function () {
     // $articles = Article::all();
@@ -118,3 +118,6 @@ Route::prefix('service-container')->group(function () {
     Route::get('/p4', 'ExamplesController@home1');
     Route::get('/p5', 'ExamplesController@home2');
 });
+
+Route::get('/payments/create', 'PaymentsController@create')->middleware('auth');
+Route::post('/payments', 'PaymentsController@store')->middleware('auth');
