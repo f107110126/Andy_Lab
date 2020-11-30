@@ -45,3 +45,10 @@ to use sms notification, use command:
 composer require laravel/nexmo-notification-channel
 and setup NEXMO_KEY and NEXMO_SECRET in .env file
 use this site: https://dashboard.nexmo.com
+
+to create customer event:
+php artisan make:event ProductPurchased
+to create customer listener:
+php artisan make:listener AwardAchievements
+or
+php artisan make:listener AwardAchievements -e ProductPurchased
