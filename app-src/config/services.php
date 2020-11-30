@@ -32,4 +32,8 @@ return [
 
     'foo' => 'value',
 
+    'nexmo' => [
+        'sms_from' => '912314594'
+    ]
+
 ];

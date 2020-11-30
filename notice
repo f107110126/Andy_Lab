@@ -36,3 +36,12 @@ php artisan vendor:publish --tag=laravel-mail
 
 by default markdon will use template in views
 also can setup with config/mail.php
+
+to use database notification, use command:
+php artisan notifications:table
+php artisan migrate
+
+to use sms notification, use command:
+composer require laravel/nexmo-notification-channel
+and setup NEXMO_KEY and NEXMO_SECRET in .env file
+use this site: https://dashboard.nexmo.com

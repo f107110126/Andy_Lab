@@ -36,6 +36,10 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
+    public function routeNotificationForNexmo($notification) {
+        return ''; //phone number registered at nexmo.com for test
+    }
+
     public function articles()
     {
         return $this->hasMany(Article::class);
