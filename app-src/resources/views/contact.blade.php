@@ -10,7 +10,7 @@
                         @csrf
                         <div class="mb-5">
                             <label for="email" class="block text-xs uppercase font-semibold mb-1">Email Address</label>
-                            <input type="text" id="email" name="email" class="borer px-2 py-1 text-sm m-full">
+                            <input type="text" id="email" name="email" class="border px-2 py-1 text-sm w-full">
                             @error('email')
                                 <div class="text-red-500 text-xs">{{ $message }}</div>
                             @enderror

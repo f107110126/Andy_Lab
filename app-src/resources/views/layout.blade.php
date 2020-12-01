@@ -27,6 +27,7 @@ Released   : 20140225
 <!-- <link href="css/fonts.css" rel="stylesheet" type="text/css" media="all" /> -->
 
 <!-- version 003 -->
+<link href="{{ asset('css/app.css') }}" rel="stylesheet"/>
 <link href="{{ asset('css/default.css') }}" rel="stylesheet"/>
 <link href="{{ asset('css/fonts.css') }}" rel="stylesheet"/>
 
