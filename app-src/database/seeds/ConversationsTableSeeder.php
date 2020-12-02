@@ -9,6 +9,10 @@ class ConversationsTableSeeder extends Seeder
 {
     /**
      * Run the database seeds.
+     * Generate by command:
+     * php artisan make:seed ConversationsTableSeeder
+     * to execute this seeder:
+     * php artisan db:seed --class ConversationsTableSeeder
      *
      * @return void
      */
