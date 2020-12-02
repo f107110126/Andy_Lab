@@ -124,6 +124,7 @@ Route::post('/payments', 'PaymentsController@store')->middleware('auth');
 Route::get('/notifications', 'UserNotificationsController@show')->middleware('auth');
 
 Route::get('/conversations', 'ConversationsController@index');
-Route::get('/conversations/{conversation}', 'ConversationsController@show');
+Route::get('/conversations/{conversation}', 'ConversationsController@show')->middleware('can:view,conversation');
+// notice "conversation" in middleware and uri must be same.
 
 Route::post('/best-replies/{reply}', 'ConversationBestReplyController@store');

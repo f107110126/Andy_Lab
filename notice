@@ -52,3 +52,16 @@ to create customer listener:
 php artisan make:listener AwardAchievements
 or
 php artisan make:listener AwardAchievements -e ProductPurchased
+
+resource ability map:
+index --> viewAny
+show --> view
+create --> create
+store --> create
+edit --> update
+update --> update
+destory --> delete
+
+$this->authorize('update', $reply->conversation); // call with ability
+$this->authorize($reply->conversation); // according which function call it
+// find ability from map
