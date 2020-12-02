@@ -12,6 +12,26 @@ class ConversationPolicy
 {
     use HandlesAuthorization;
 
+    public function before(User $user) {
+        // $user->isAdmin() $user->roles() $user->id
+        // this point is "if is admin, whatever just pass;
+        // also point to "if not admin, whatever just false;
+        // return $user->id === 6; // 
+
+        // this is said "if is admin, whatever just pass;
+        // if not admin do the after...
+        // return true or false will stop authorize
+        // only return null will do next
+        if ($user->id === 6) {
+            return true;
+        }
+    }
+
+    public function after(User $user) {
+        // return $user->id === 6;
+        // here could do other process;
+    }
+
     /**
      * Determine whether the user can view any conversations.
      *

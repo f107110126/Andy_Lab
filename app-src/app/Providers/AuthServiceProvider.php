@@ -2,7 +2,7 @@
 
 namespace App\Providers;
 
-use App\Conversation;
+// use App\Conversation;
 use App\User;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 use Illuminate\Support\Facades\Gate;
@@ -31,5 +31,10 @@ class AuthServiceProvider extends ServiceProvider
         //     // return true; // if a user has login it will be pass
         //     return $conversation->user->is($user);
         // });
+
+        Gate::before(function (User $user) {
+            // it should before than policy
+            if ($user->id === 6) {return true;}
+        });
     }
 }
