@@ -65,3 +65,40 @@ destory --> delete
 $this->authorize('update', $reply->conversation); // call with ability
 $this->authorize($reply->conversation); // according which function call it
 // find ability from map
+
+php artisan tinker
+$user = User::find(6);
+$moderator = App\Role::firstOrCreate(['name' => 'moderator']);
+$editForum = App\Ability::firstOrCreate(['name' => 'edit_forum']);
+$moderator->allowTo($editForum);
+$user->assignRole($moderator);
+$user->roles;
+$user->roles[0]->abilities;
+$user->roles->map;
+$user->roles->map->abilities;
+$user->roles->map->abilities->flatten();
+$user->roles->map->abilities->flatten()->pluck('name');
+$user->roles->map->abilities->flatten()->pluck('name')->unique();
+
+$user = User::find(6);
+$roles = collect([]);
+$roles->push(App\Role::where(['name' => 'post_manager'])->first());
+$roles->push(App\Role::where(['name' => 'product_manager'])->first());
+$user->assignRole($roles);
+
+$roles = collect([]);
+$roles->push(App\Role::where(['name' => 'post_manager'])->first());
+$roles->push(App\Role::where(['name' => 'product_manager'])->first());
+$abilities = collect([]);
+$abilities->push(App\Ability::where(['name' => 'edit_post'])->first());
+$abilities->push(App\Ability::where(['name' => 'view_post'])->first());
+$roles[0]->allowTo($abilities);
+$abilities = collect([]);
+$abilities->push(App\Ability::where(['name' => 'edit_products'])->first());
+$abilities->push(App\Ability::where(['name' => 'view_products'])->first());
+$roles[1]->allowTo($abilities);
+
+these all the same
+$role = App\Role::wherelabel('mode')->get();
+$role = App\Role::whereLabel('mode')->get();
+$role = App\Role::where('label', 'mode')->get();

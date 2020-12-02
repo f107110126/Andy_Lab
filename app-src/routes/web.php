@@ -128,3 +128,7 @@ Route::get('/conversations/{conversation}', 'ConversationsController@show')->mid
 // notice "conversation" in middleware and uri must be same.
 
 Route::post('/best-replies/{reply}', 'ConversationBestReplyController@store');
+
+Route::get('/abilities', function () {
+    return view('abilities');
+});

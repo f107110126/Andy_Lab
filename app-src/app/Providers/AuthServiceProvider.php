@@ -32,9 +32,17 @@ class AuthServiceProvider extends ServiceProvider
         //     return $conversation->user->is($user);
         // });
 
-        Gate::before(function (User $user) {
-            // it should before than policy
-            if ($user->id === 6) {return true;}
+        // Gate::before(function (User $user) {
+        //     // it should before than policy
+        //     if ($user->id === 6) {return true;}
+        // });
+
+        Gate::before(function (User $user, $ability) {
+            // return $user->abilities()->pluck('name')->contains($ability);
+            // better way
+            if ($user->abilities()->pluck('name')->contains($ability)) {
+                return true;
+            }
         });
     }
 }
