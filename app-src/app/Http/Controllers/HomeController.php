@@ -22,6 +22,6 @@ class HomeController extends Controller
     public function index()
     {
         // return view('home', ['tweets'=>Tweet::latest()->get()]);
-        return view('home', ['tweets' => auth()->user()->timeline()]);
+        return 'home page is gone.';
     }
 }
