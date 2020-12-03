@@ -45,6 +45,10 @@ $app->bind('path.public', function () {
     return realpath(base_path() . '/../');
 });
 
+$app->bind('path.storage', function () {
+    return realpath(base_path() . '/../storage');
+});
+
 /*
 |--------------------------------------------------------------------------
 | Return The Application
