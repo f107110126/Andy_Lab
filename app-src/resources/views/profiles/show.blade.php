@@ -1,6 +1,4 @@
-@extends('layouts.app')
-
-@section('content')
+@component('components.app')
     <header class="mb-6 relative">
         <img src="{{ url('/images/banner-sample.jpg') }}" alt="" class="mb-2">
         <div class="flex justify-between items-center">
@@ -23,4 +21,4 @@
 
     </header>
     @include('_timeline', ['tweets' => $user->tweets])
-@endsection
+@endcomponent
