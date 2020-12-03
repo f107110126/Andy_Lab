@@ -1,14 +1,25 @@
 @component('components.app')
     <header class="mb-6 relative">
-        <img src="{{ url('/images/banner-sample.jpg') }}" alt="" class="mb-2">
-        <div class="flex justify-between items-center">
+        <div class="relative">
+            <img src="{{ url('/images/banner-sample.jpg') }}" alt="" class="mb-2">
+            <img src="https://i.pravatar.cc/150?u={{ $user->email }}" alt="" class="rounded-full absolute bottom-0 transform -translate-x-1/2 translate-y-1/2"
+                width="150" style="left: 50%">
+            {{-- style="left: 50%; transform:translateX(-50%) translateY(50%)"
+            --}}
+        </div>
+        <div class="flex justify-between items-center mb-6">
             <div>
                 <h2 class="font-bold text-2xl mb-0">{{ $user->name }}</h2>
                 <p class="text-sm">Joined {{ $user->created_at->diffForHumans() }}</p>
             </div>
-            <div>
-                <a href="" class="rounded-full border border-gray-300 mr-2 py-2 px-4 text-black text-xs">Edit Profile</a>
-                <a href="" class="bg-blue-500 rounded-full  shadow py-2 px-4 text-white">Follow Me</a>
+            <div class="flex">
+                <a href=""
+                    class="flex items-center rounded-full border border-gray-300 mr-2 py-2 px-4 text-black text-xs">Edit
+                    Profile</a>
+                {{-- <x-follow-button :user="$user"></x-follow-button>
+                --}}
+                @component('components.follow-button', ['user' => $user])
+                @endcomponent
             </div>
         </div>
         <p class="text-sm">
@@ -16,8 +27,6 @@
             is famous for his flippant, insouciant personality. He is also characterized by a Brooklyn accent, his
             portrayal as a trickster, and his catch phrase "Eh ... What's up, doc?"
         </p>
-        <img src="https://i.pravatar.cc/150?u={{ $user->email }}" alt="" class="rounded-full absolute"
-            style="top: 138px; width: 150px; left: calc(50% - 75px)">
 
     </header>
     @include('_timeline', ['tweets' => $user->tweets])
