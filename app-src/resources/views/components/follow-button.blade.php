@@ -1,11 +1,7 @@
-@if (auth()
-        ->user()
-        ->isNot($user))
+@if (current_user() && current_user()->isNot($user))
     <form method="POST" action="{{ url("/profiles/{$user->name}/follow") }}">
         @csrf
-        @if (auth()
-        ->user()
-        ->following($user))
+        @if (current_user()->following($user))
             <button type="submit"
                 class="flex items-center border border-blue-500 rounded-full shadow py-2 px-4 text-blue-500">Unfollow</button>
         @else

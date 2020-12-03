@@ -2,7 +2,7 @@
     <header class="mb-6 relative">
         <div class="relative">
             <img src="{{ url('/images/banner-sample.jpg') }}" alt="" class="mb-2">
-            <img src="https://i.pravatar.cc/150?u={{ $user->email }}" alt=""
+            <img src="{{ $user->avatar }}" alt=""
                 class="rounded-full absolute bottom-0 transform -translate-x-1/2 translate-y-1/2" width="150"
                 style="left: 50%">
             {{-- style="left: 50%; transform:translateX(-50%) translateY(50%)"

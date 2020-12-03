@@ -2,7 +2,7 @@
     <h3 class="font-blod text-xl mb-4">Following</h3>
 
     <ul>
-        @foreach (current_user()->follows /* or friends */ as $user)
+        @forelse (current_user()->follows /* or friends */ as $user)
             <li class="mb-4">
                 <div>
                     {{-- <a class="flex items-center text-sm"
@@ -13,6 +13,8 @@
                     </a>
                 </div>
             </li>
-        @endforeach
+            @empty
+            <li>No fiends yet.</li>
+        @endforelse
     </ul>
 </div>
