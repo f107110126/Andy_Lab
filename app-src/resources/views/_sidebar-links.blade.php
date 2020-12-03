@@ -7,6 +7,6 @@
     <li><a class="font-bold text-lg mb-4 block" href="#">Lists</a></li>
     {{-- <li><a class="font-bold text-lg mb-4 block"
             href="{{ route('profiles', auth()->user()) }}">Profile</a></li> --}}
-    <li><a class="font-bold text-lg mb-4 block" href="{{ auth()->user()->path() }}">Profile</a></li>
+    <li><a class="font-bold text-lg mb-4 block" href="{{ current_user()->path() }}">Profile</a></li>
     <li><a class="font-bold text-lg mb-4 block" href="#">More</a></li>
 </ul>

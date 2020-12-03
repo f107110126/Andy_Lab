@@ -2,8 +2,9 @@
     <header class="mb-6 relative">
         <div class="relative">
             <img src="{{ url('/images/banner-sample.jpg') }}" alt="" class="mb-2">
-            <img src="https://i.pravatar.cc/150?u={{ $user->email }}" alt="" class="rounded-full absolute bottom-0 transform -translate-x-1/2 translate-y-1/2"
-                width="150" style="left: 50%">
+            <img src="https://i.pravatar.cc/150?u={{ $user->email }}" alt=""
+                class="rounded-full absolute bottom-0 transform -translate-x-1/2 translate-y-1/2" width="150"
+                style="left: 50%">
             {{-- style="left: 50%; transform:translateX(-50%) translateY(50%)"
             --}}
         </div>
@@ -13,9 +14,15 @@
                 <p class="text-sm">Joined {{ $user->created_at->diffForHumans() }}</p>
             </div>
             <div class="flex">
-                <a href=""
-                    class="flex items-center rounded-full border border-gray-300 mr-2 py-2 px-4 text-black text-xs">Edit
-                    Profile</a>
+                {{--
+                @if (current_user()->is($user))
+                @endif
+                --}}
+                @can('edit', $user)
+                    <a href="{{ $user->path('edit') }}"
+                        class="flex items-center rounded-full border border-gray-300 mr-2 py-2 px-4 text-black text-xs">Edit
+                        Profile</a>
+                @endcan
                 {{-- <x-follow-button :user="$user"></x-follow-button>
                 --}}
                 @component('components.follow-button', ['user' => $user])
