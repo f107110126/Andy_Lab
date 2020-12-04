@@ -27,12 +27,15 @@ class ProfilesController extends Controller
     {
         $attributes = request()->validate([
             'username' => ['string', 'required', 'max:255', 'alpha_dash', Rule::unique('users')->ignore($user)],
-            'avatar' => ['required', 'file'],
+            'avatar' => ['file'],
             'name' => ['string', 'required', 'max:255'],
             'email' => ['string', 'required', 'email', 'max:255', Rule::unique('users')->ignore($user)],
             'password' => ['string', 'required', 'min:8', 'max:255', 'confirmed'],
         ]);
-        $attributes['avatar'] = 'uploads/' . request('avatar')->store('avatars', 'upload');
+        if (request('avatar')) {
+            $attributes['avatar'] = 'uploads/' . request('avatar')->store('avatars', 'upload');
+        }
+
         // $attributes['password'] = Hash::make($attributes['password']);
         $user->update($attributes);
         return redirect($user->path());
