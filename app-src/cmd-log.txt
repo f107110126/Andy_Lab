@@ -16,3 +16,7 @@ php artisan tinker
 $users = App\User::all();
 $users = $users->skip(1);
 $users->each(function ($user) {factory(App\Tweet::class, 10)->create(['user_id' => $user->id]);});
+
+php artisan vendor:publish
+// list could been publish item
+php artisan vendor:publish --tag=laravel-paginaion
