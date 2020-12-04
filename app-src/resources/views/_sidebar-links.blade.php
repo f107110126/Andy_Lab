@@ -9,4 +9,9 @@
             href="{{ route('profiles', auth()->user()) }}">Profile</a></li> --}}
     <li><a class="font-bold text-lg mb-4 block" href="{{ current_user()->path() }}">Profile</a></li>
     <li><a class="font-bold text-lg mb-4 block" href="#">More</a></li>
+    <li><a class="font-bold text-lg mb-4 block" href="{{ route('logout') }}"
+            onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Logout</a></li>
+    <form method="POST" action="{{ route('logout') }}" id="logout-form">
+        @csrf
+    </form>
 </ul>

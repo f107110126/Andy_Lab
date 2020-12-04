@@ -27,4 +27,14 @@ class ResetPasswordController extends Controller
      * @var string
      */
     protected $redirectTo = RouteServiceProvider::HOME;
+
+    // prepare for multi_auth
+    // protected function setUserPassword($user, $password)
+    // {
+    //     $user->password = Hash::make($password);
+    // }
+    protected function setUserPassword($user, $password)
+    {
+        $user->password = $password;
+    }
 }

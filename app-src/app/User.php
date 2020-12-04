@@ -39,7 +39,7 @@ class User extends Authenticatable
     public function getAvatarAttribute($value)
     {
         // return 'https://i.pravatar.cc/200?u=' . $this->email;
-        return asset($value);
+        return $value ? asset($value) : 'https://i.pravatar.cc/200?u=' . $this->email;
     }
 
     public function timeline()
@@ -76,5 +76,11 @@ class User extends Authenticatable
     {
         $path = route('profiles', $this);
         return $append ? $path . '/' . $append : $path;
+    }
+
+    public function setPasswordAttribute($value)
+    {
+        // this will effect
+        $this->attributes['password'] = bcrypt($value);
     }
 }

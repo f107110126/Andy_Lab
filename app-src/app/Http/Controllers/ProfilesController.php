@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 // use Illuminate\Http\Request;
 use App\User;
-use Illuminate\Support\Facades\Hash;
+// use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rule;
 
 class ProfilesController extends Controller
@@ -33,7 +33,7 @@ class ProfilesController extends Controller
             'password' => ['string', 'required', 'min:8', 'max:255', 'confirmed'],
         ]);
         $attributes['avatar'] = 'uploads/' . request('avatar')->store('avatars', 'upload');
-        $attributes['password'] = Hash::make($attributes['password']);
+        // $attributes['password'] = Hash::make($attributes['password']);
         $user->update($attributes);
         return redirect($user->path());
     }
