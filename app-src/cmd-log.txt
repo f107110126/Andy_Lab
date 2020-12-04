@@ -11,3 +11,8 @@ php artisan make:model Tweet -fmc
 composer dump-autoload
 php artisan make:policy UserPolicy
 php artisan storage:link
+
+php artisan tinker
+$users = App\User::all();
+$users = $users->skip(1);
+$users->each(function ($user) {factory(App\Tweet::class, 10)->create(['user_id' => $user->id]);});

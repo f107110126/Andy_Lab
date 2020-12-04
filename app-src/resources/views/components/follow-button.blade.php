@@ -1,5 +1,5 @@
 @if (current_user() && current_user()->isNot($user))
-    <form method="POST" action="{{ url("/profiles/{$user->name}/follow") }}">
+    <form method="POST" action="{{ route('follow', $user) }}">
         @csrf
         @if (current_user()->following($user))
             <button type="submit"

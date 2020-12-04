@@ -39,6 +39,7 @@ class User extends Authenticatable
     public function getAvatarAttribute($value)
     {
         // return 'https://i.pravatar.cc/200?u=' . $this->email;
+        // return asset($value ?: '/images/default-avatar.jpeg');
         return $value ? asset($value) : 'https://i.pravatar.cc/200?u=' . $this->email;
     }
 
