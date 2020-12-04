@@ -59,12 +59,13 @@ class User extends Authenticatable
         // version 02
         return Tweet::whereIn('user_id', $follows)
             ->orWhere('user_id', $this->id)
-            ->latest()->paginate(5);
+            ->withLikes()
+            ->latest()->orderBy('id', 'desc')->paginate(5);
     }
 
     public function tweets()
     {
-        return $this->hasMany(Tweet::class)->latest();
+        return $this->hasMany(Tweet::class)->withLikes()->latest()->orderBy('id', 'desc');
     }
 
     public function getRouteKeyName()
@@ -83,5 +84,10 @@ class User extends Authenticatable
     {
         // this will effect
         $this->attributes['password'] = bcrypt($value);
+    }
+
+    public function likes()
+    {
+        return $this->hasMany(Like::class);
     }
 }
