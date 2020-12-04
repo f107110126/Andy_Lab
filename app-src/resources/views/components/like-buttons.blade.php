@@ -1,7 +1,7 @@
 <div class="flex">
     <form action="{{ url("/tweets/{$tweet->id}/like") }}" method="post">
         @csrf
-        <div class="flex items-center mr-4 {{ $tweet->isLikedBy(current_user()) ? 'text-blue-500' : 'text-gray-500' }}">
+        <button type="submit" class="flex items-center mr-4 {{ $tweet->isLikedBy(current_user()) ? 'text-blue-500' : 'text-gray-500' }}">
             {{-- copyed from zondicons.com --}}
             <svg viewBox="0 0 20 20" class="mr-1 w-3">
                 <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
@@ -12,14 +12,13 @@
                     </g>
                 </g>
             </svg>
-            <button type="submit" class="text-xs text-gray-500">{{ $tweet->likes ?: 0 }}</button>
-        </div>
+            <span class="text-xs text-gray-500">{{ $tweet->likes ?: 0 }}</span>
+        </button>
     </form>
 
-    <form action="{{ url("/tweets/{$tweet->id}/like") }}" method="post">
+    <form action="{{ url("/tweets/{$tweet->id}/dislike") }}" method="post">
         @csrf
-        @method('delete')
-        <div class="flex items-center {{ $tweet->isDislikedBy(current_user()) ? 'text-blue-500' : 'text-gray-500' }}">
+        <button type="submit" class="flex items-center {{ $tweet->isDislikedBy(current_user()) ? 'text-blue-500' : 'text-gray-500' }}">
             <svg viewBox="0 0 20 20" class="mr-1 w-3">
                 <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
                     <g class="fill-current">
@@ -29,7 +28,7 @@
                     </g>
                 </g>
             </svg>
-            <button type="submit" class="text-xs text-gray-500">{{ $tweet->dislikes ?: 0 }}</button>
-        </div>
+            <span class="text-xs text-gray-500">{{ $tweet->dislikes ?: 0 }}</span>
+        </button>
     </form>
 </div>
